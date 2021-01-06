@@ -7,6 +7,8 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
 
 FOLDER = "certs"
 
@@ -141,3 +143,23 @@ def load_cert(filename):
     cert = load_pem_x509_certificate(pemlines, default_backend())
     return cert
 
+def verify_cert():
+    root_cert = load_cert("certs/root_ca.crt")
+    ca_cert = load_cert("certs/intermediate_ca.crt")
+    domain_cert = load_cert("certs/service.example.com.crt")
+
+    root_public_key = root_cert.public_key()
+    root_public_key.verify(
+        ca_cert.signature,
+        ca_cert.tbs_certificate_bytes,
+        padding.PKCS1v15(),
+        ca_cert.signature_hash_algorithm,
+    )
+
+    ca_public_key = ca_cert.public_key()
+    ca_public_key.verify(
+        domain_cert.signature,
+        domain_cert.tbs_certificate_bytes,
+        padding.PKCS1v15(),
+        domain_cert.signature_hash_algorithm,
+    )
