@@ -1,0 +1,134 @@
+build_python_base:
+  image: docker:stable
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./python_base/Dockerfile -t ocha/python_base ./python_base/
+    - docker tag ocha/python_base 127.0.0.1:5000/ocha/python_base
+    - docker push 127.0.0.1:5000/ocha/python_base
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_lint_runner:
+  image: docker:stable
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./lint/Dockerfile -t ocha/pylint_git ./lint/
+    - docker tag ocha/pylint_git 127.0.0.1:5000/ocha/pylint_git
+    - docker push 127.0.0.1:5000/ocha/pylint_git
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_lint3_runner:
+  image: docker:stable
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./lint3/Dockerfile -t ocha/pylint3_git ./lint3/
+    - docker tag ocha/pylint3_git 127.0.0.1:5000/ocha/pylint3_git
+    - docker push 127.0.0.1:5000/ocha/pylint3_git
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_logic_server_env:
+  image: docker:stable
+  ###
+  # make this job optoinal
+  # so that it won't block the merge request
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./logic_server_env/Dockerfile -t ocha/pos_python_server_base_env ./logic_server_env/
+    - docker tag ocha/pos_python_server_base_env 127.0.0.1:5000/ocha/pos_python_server_base_env
+    - docker push 127.0.0.1:5000/ocha/pos_python_server_base_env
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_python2:
+  image: docker:stable
+  ###
+  # make this job optoinal
+  # so that it won't block the merge request
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./python2/Dockerfile -t ocha/python2 ./python2/
+    - docker tag ocha/python2 127.0.0.1:5000/ocha/python2
+    - docker push 127.0.0.1:5000/ocha/python2
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_python3:
+  image: docker:stable
+  ###
+  # make this job optoinal
+  # so that it won't block the merge request
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./python3/Dockerfile -t ocha/python3 ./python3/
+    - docker tag ocha/python3 127.0.0.1:5000/ocha/python3
+    - docker push 127.0.0.1:5000/ocha/python3
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_webapi_env:
+  image: docker:stable
+  ###
+  # make this job optoinal
+  # so that it won't block the merge request
+  allow_failure: true
+  when: manual
+  script:
+    - docker build -f ./webapi_env/Dockerfile -t ocha/webapi_base_env ./webapi_env/
+    - docker tag ocha/webapi_base_env 127.0.0.1:5000/ocha/webapi_base_env
+    - docker push 127.0.0.1:5000/ocha/webapi_base_env
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+build_mysql57:
+  image: docker:stable
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./mysql57/Dockerfile -t ocha/mysql:5.7 ./mysql57/
+    - docker tag ocha/mysql:5.7 127.0.0.1:5000/ocha/mysql:5.7
+    - docker push 127.0.0.1:5000/ocha/mysql:5.7
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
+
+
+build_elasticsearch_6.4.0:
+  image: docker:stable
+  allow_failure: true
+  when: manual
+  script:
+    - ls -alht
+    - docker build -f ./elasticsearch_6.4.0/Dockerfile -t ocha/elasticsearch:6.4.0 ./elasticsearch_6.4.0/
+    - docker tag ocha/elasticsearch:6.4.0 127.0.0.1:5000/ocha/elasticsearch:6.4.0
+    - docker push 127.0.0.1:5000/ocha/elasticsearch:6.4.0
+  tags:
+    - docker_build
+    - ocha_gitlab_registry
