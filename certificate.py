@@ -88,7 +88,7 @@ def gen_root_ca(common_name='Simple Root CA', filename="root_ca", expired_after=
     with open("%s/%s.crt" % (FOLDER, filename), "wb") as fout:
         fout.write(public_bytes)
 
-def gen_ca(root_cert, root_private_key, common_name='Simple Test CA', filename="intermedia_ca", expired_after=90):
+def gen_ca(root_cert, root_private_key, common_name='Simple Test CA', filename="intermediate_ca", expired_after=90):
     ca_private_key = gen_key()
     ca_name = x509.Name([
         x509.NameAttribute(NameOID.COMMON_NAME, common_name),
@@ -162,4 +162,13 @@ def verify_cert():
         domain_cert.tbs_certificate_bytes,
         padding.PKCS1v15(),
         domain_cert.signature_hash_algorithm,
+    )
+
+def gen_domain_cert(domain):
+    ca_private_key = load_key("certs/intermedia_ca.key")
+    ca_cert = load_cert("certs/intermedia_ca.crt")
+    gen_service(
+        ca_cert=ca_cert,
+        ca_private_key=ca_private_key,
+        domain=domain
     )
