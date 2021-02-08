@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
-
-import sys
-fs = FileSystemStorage()
+from django.http import HttpResponse
 
 def index(request):
     if request.method == 'POST':
@@ -11,3 +9,6 @@ def index(request):
         })
 
     return render(request, 'simple_upload.html')
+
+def ok(request):
+    return HttpResponse("Server is ok.")
