@@ -12,3 +12,11 @@ def index(request):
 
 def ok(request):
     return HttpResponse("Server is ok.")
+
+
+def add(request):
+    a = int(request.GET.get('a', 0))
+    b = int(request.GET.get('b', 0))
+    result = a + b
+
+    return HttpResponse(str(result))
