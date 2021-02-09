@@ -14,3 +14,6 @@ test:
     - echo "123"
 #  only:
 #    - devops
+  tags:
+    - docker_build
+    - example
