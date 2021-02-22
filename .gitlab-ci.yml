@@ -4,6 +4,7 @@ stages:
 
 build-django:
   stage: build
+  image: docker:latest
   script:
     - echo "123"
     - docker build -t ca .
