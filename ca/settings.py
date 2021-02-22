@@ -119,6 +119,15 @@ USE_L10N = True
 USE_TZ = True
 
 
+CACHE_SERVERS = {
+	"default": {
+		"type": "redis",
+		"host": "localhost",
+		"port": 6379,
+		"default_timeout": 604800
+	}
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 

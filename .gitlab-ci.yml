@@ -1,19 +1,26 @@
 stages:
-  - test
+  - build
+  - deploy
 
-test:
-  stage: test
+build-django:
+  stage: build
   script:
-    # this configures Django application to use attached postgres database that is run on `postgres` host
-#    - export DATABASE_URL=postgres://postgres:@postgres:5432/python-test-app
-#    - apt-get update -qy
-#    - apt-get install -y python-dev python-pip
-#    - pip install -r requirements.txt
-#    - python manage.py makemigrations ca
-#    - python manage.py test
     - echo "123"
-#  only:
-#    - devops
+    - docker build -t ca .
+  tags:
+    - echo "Build Backend..."
+    - docker_build
+    - example
+
+deploy-django:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - echo "Deploying Backend..."
+    - docker run -p 9000:9000 --name ca ca "/bin/bash -c python manager.py
+    - echo "Backend Deployment Complete!"
   tags:
     - docker_build
     - example

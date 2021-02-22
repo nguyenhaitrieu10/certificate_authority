@@ -5,4 +5,4 @@ RUN mkdir -p /opt/project
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-CMD ["/bin/sh","-c", "python manage.py runserver"]
+ENTRYPOINT ["/bin/sh", "-c", "python manage.py runserver 0.0.0.0:9000"]
