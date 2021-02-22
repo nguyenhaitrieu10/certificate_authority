@@ -7,7 +7,6 @@ build-django:
   image: docker:latest
   script:
     - echo "123"
-    - docker build -t ca .
   tags:
     - docker_build
     - example
