@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   db:
@@ -16,8 +16,5 @@ services:
     network_mode: host
   django:
     container_name: django
-    build: .
+    image: ca:latest
     network_mode: host
-    depends_on:
-      - redis
-      - db
