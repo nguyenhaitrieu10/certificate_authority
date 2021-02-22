@@ -8,7 +8,6 @@ build-django:
     - echo "123"
     - docker build -t ca .
   tags:
-    - echo "Build Backend..."
     - docker_build
     - example
 
@@ -19,8 +18,7 @@ deploy-django:
     - docker:dind
   script:
     - echo "Deploying Backend..."
-    - docker run -p 9000:9000 --name ca ca "/bin/bash -c python manager.py
     - echo "Backend Deployment Complete!"
   tags:
-    - docker_build
+    - docker_deploy
     - example
