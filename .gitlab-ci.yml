@@ -7,8 +7,9 @@ build-django:
   image: docker:latest
   script:
     - echo "123"
+    - hostname
+    - ps aux
   tags:
-    - docker_build
     - example
 
 deploy-django:
@@ -20,5 +21,4 @@ deploy-django:
     - echo "Deploying Backend..."
     - echo "Backend Deployment Complete!"
   tags:
-    - docker_deploy
     - example
